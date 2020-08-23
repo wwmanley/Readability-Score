@@ -1,4 +1,3 @@
-package readability;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.File;
@@ -6,17 +5,16 @@ import java.io.File;
 public class Main {
 
    static File file = new File("src/words.txt");
-   static int polySyllables = 0;
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
 
         Scanner reader = new Scanner(System.in);
 
         System.out.println("Words: " + numberOfWords());
         System.out.println("Sentences: " + numberOfSentences());
         System.out.println("Characters: " + numberOfCharacters());
-        System.out.println("Syllables: " + numberOfSyllables());
-        System.out.println("Polysyllables: " + polySyllables);
+        System.out.println("Syllables: " + numberOfSyllables()[0]);
+        System.out.println("Polysyllables: " + numberOfSyllables()[1]);
         System.out.print("Enter the score you want to calculate (ARI, FK, SMOG, CL, all): ");
 
         String userInput = reader.nextLine();
@@ -44,9 +42,22 @@ public class Main {
 
     }
 
-    public static int numberOfWords() throws FileNotFoundException {
+    public static Scanner createScanner() {
 
-        Scanner reader = new Scanner(file);
+        Scanner reader = null;
+
+        try {
+            reader = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found!");
+        }
+
+        return reader;
+    }
+
+    public static int numberOfWords() {
+
+        Scanner reader = createScanner();
         int numberOfWords = 0;
 
         while (reader.hasNext()) {
@@ -54,13 +65,12 @@ public class Main {
             numberOfWords++;
         }
 
-        reader.close();
         return numberOfWords;
     }
 
-    public static int numberOfSentences() throws FileNotFoundException {
+    public static int numberOfSentences() {
 
-        Scanner reader = new Scanner(file);
+        Scanner reader = createScanner();
         StringBuilder sentences = new StringBuilder();
 
         while (reader.hasNextLine()) {
@@ -68,13 +78,12 @@ public class Main {
         }
 
         String[] sentenceSplit = sentences.toString().split("[.!?]");
-        reader.close();
         return sentenceSplit.length;
     }
 
-    public static int numberOfCharacters() throws FileNotFoundException {
+    public static int numberOfCharacters() {
 
-        Scanner reader = new Scanner(file);
+        Scanner reader = createScanner();
         StringBuilder sentences = new StringBuilder();
 
         while (reader.hasNextLine()) {
@@ -88,15 +97,16 @@ public class Main {
             numberOfCharacters += element.length();
         }
 
-        reader.close();
         return numberOfCharacters;
     }
 
-    public static int numberOfSyllables() throws FileNotFoundException {
+    public static int[] numberOfSyllables() {
 
-        Scanner reader = new Scanner(file);
+        Scanner reader = createScanner();
         StringBuilder combinedWords = new StringBuilder();
+        int[] syllables = new int[2];
         int numberOfSyllables = 0;
+        int numberOfPolysyllables = 0;
 
         while (reader.hasNextLine()) {
             combinedWords.append(reader.nextLine());
@@ -132,14 +142,15 @@ public class Main {
             }
 
             if (vowelCount > 2) {
-                polySyllables++;
+                numberOfPolysyllables++;
             }
 
             numberOfSyllables += vowelCount;
         }
 
-        reader.close();
-        return numberOfSyllables;
+        syllables[0] = numberOfSyllables;
+        syllables[1] = numberOfPolysyllables;
+        return syllables;
     }
 
     public static boolean isVowel(char letter) {
@@ -147,21 +158,21 @@ public class Main {
         return letter == 'a' || letter == 'e' || letter == 'i' || letter == 'o' || letter == 'u' || letter == 'y';
     }
 
-    public static double fleshKincaidTest() throws FileNotFoundException {
-        return 0.39 * numberOfWords() / numberOfSentences() + 11.8 * numberOfSyllables() / numberOfWords() - 15.59;
+    public static double fleshKincaidTest() {
+        return 0.39 * numberOfWords() / numberOfSentences() + 11.8 * numberOfSyllables()[0] / numberOfWords() - 15.59;
     }
 
-    public static double smogTest() throws FileNotFoundException {
-        return 1.043 * Math.sqrt((double) polySyllables * 30 / (double) numberOfSentences()) + 3.1291;
+    public static double smogTest() {
+        return 1.043 * Math.sqrt((double) numberOfSyllables()[1] * 30 / (double) numberOfSentences()) + 3.1291;
     }
 
-    public static double colemanIndex() throws FileNotFoundException {
+    public static double colemanIndex() {
         double L = ((double) numberOfCharacters() / (double) numberOfWords()) * 100;
         double S = ((double) numberOfSentences() / (double) numberOfWords()) * 100;
         return 0.0588 * L - 0.296 * S - 15.8;
     }
 
-    public static double score() throws FileNotFoundException {
+    public static double score() {
 
         return (4.71 * numberOfCharacters() / numberOfWords() + 0.5 * numberOfWords() / numberOfSentences() - 21.43);
     }
@@ -170,34 +181,35 @@ public class Main {
 
         double score = Math.round(number);
 
-        if (score == 1.0) {
-            return "(About 6 years old)";
-        } else if (score == 2.0) {
-            return "(About 7 years old)";
-        } else if (score == 3.0) {
-            return "(About 9 years old)";
-        } else if (score == 4.0) {
-            return "(About 10 years old)";
-        } else if (score == 5.0) {
-            return "(About 11 years old)";
-        } else if (score == 6.0) {
-            return "(About 12 years old)";
-        } else if (score == 7.0) {
-            return "(About 13 years old)";
-        } else if (score == 8.0) {
-            return "(About 14 years old)";
-        } else if (score == 9.0) {
-            return "(About 15 years old)";
-        } else if (score == 10.0) {
-            return "(About 16 years old)";
-        } else if (score == 11.0) {
-            return "(About 17 years old)";
-        } else if (score == 12.0) {
-            return "(About 18 years old)";
-        } else if (score == 13.0) {
-            return "(About 24 years old)";
-        } else {
-            return "(About 24+ years old)";
+        switch ((int) score) {
+            case 1:
+                return "(About 6 years old)";
+            case 2:
+                return "(About 7 years old)";
+            case 3:
+                return "(About 9 years old)";
+            case 4:
+                return "(About 10 years old)";
+            case 5:
+                return "(About 11 years old)";
+            case 6:
+                return "(About 12 years old)";
+            case 7:
+                return "(About 13 years old)";
+            case 8:
+                return "(About 14 years old)";
+            case 9:
+                return "(About 15 years old)";
+            case 10:
+                return "(About 16 years old)";
+            case 11:
+                return "(About 17 years old)";
+            case 12:
+                return "(About 18 years old)";
+            case 13:
+                return "(About 24 years old)";
+            default:
+                return "(About 24+ years old)";
         }
     }
 }
