@@ -5,6 +5,7 @@ import java.io.File;
 public class Main {
 
    static File file = new File("src/words.txt");
+   public static int polySyllables = 0;
 
     public static void main(String[] args) {
 
@@ -13,8 +14,8 @@ public class Main {
         System.out.println("Words: " + numberOfWords());
         System.out.println("Sentences: " + numberOfSentences());
         System.out.println("Characters: " + numberOfCharacters());
-        System.out.println("Syllables: " + numberOfSyllables()[0]);
-        System.out.println("Polysyllables: " + numberOfSyllables()[1]);
+        System.out.println("Syllables: " + numberOfSyllables());
+        System.out.println("Polysyllables: " + polySyllables);
         System.out.print("Enter the score you want to calculate (ARI, FK, SMOG, CL, all): ");
 
         String userInput = reader.nextLine();
@@ -103,13 +104,11 @@ public class Main {
         return numberOfCharacters;
     }
 
-    public static int[] numberOfSyllables() {
+    public static int numberOfSyllables() {
 
         Scanner reader = createScanner();
         StringBuilder combinedWords = new StringBuilder();
-        int[] syllables = new int[2];
         int numberOfSyllables = 0;
-        int numberOfPolysyllables = 0;
 
         while (reader.hasNextLine()) {
             combinedWords.append(reader.nextLine());
@@ -145,16 +144,14 @@ public class Main {
             }
 
             if (vowelCount > 2) {
-                numberOfPolysyllables++;
+                polySyllables++;
             }
 
             numberOfSyllables += vowelCount;
         }
 
-        syllables[0] = numberOfSyllables;
-        syllables[1] = numberOfPolysyllables;
         reader.close();
-        return syllables;
+        return numberOfSyllables;
     }
 
     public static boolean isVowel(char letter) {
@@ -163,11 +160,11 @@ public class Main {
     }
 
     public static double fleshKincaidTest() {
-        return 0.39 * numberOfWords() / numberOfSentences() + 11.8 * numberOfSyllables()[0] / numberOfWords() - 15.59; // Provided formula for Flesh Kincaid Test
+        return 0.39 * numberOfWords() / numberOfSentences() + 11.8 * numberOfSyllables() / numberOfWords() - 15.59; // Provided formula for Flesh Kincaid Test
     }
 
     public static double smogTest() {
-        return 1.043 * Math.sqrt((double) numberOfSyllables()[1] * 30 / (double) numberOfSentences()) + 3.1291; // Provided formula for SMOG Test
+        return 1.043 * Math.sqrt((double) polySyllables * 30 / (double) numberOfSentences()) + 3.1291; // Provided formula for SMOG Test
     }
 
     public static double colemanIndex() {
