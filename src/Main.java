@@ -65,6 +65,7 @@ public class Main {
             numberOfWords++;
         }
 
+        reader.close();
         return numberOfWords;
     }
 
@@ -78,6 +79,7 @@ public class Main {
         }
 
         String[] sentenceSplit = sentences.toString().split("[.!?]");
+        reader.close();
         return sentenceSplit.length;
     }
 
@@ -97,6 +99,7 @@ public class Main {
             numberOfCharacters += element.length();
         }
 
+        reader.close();
         return numberOfCharacters;
     }
 
@@ -150,6 +153,7 @@ public class Main {
 
         syllables[0] = numberOfSyllables;
         syllables[1] = numberOfPolysyllables;
+        reader.close();
         return syllables;
     }
 
@@ -159,17 +163,17 @@ public class Main {
     }
 
     public static double fleshKincaidTest() {
-        return 0.39 * numberOfWords() / numberOfSentences() + 11.8 * numberOfSyllables()[0] / numberOfWords() - 15.59;
+        return 0.39 * numberOfWords() / numberOfSentences() + 11.8 * numberOfSyllables()[0] / numberOfWords() - 15.59; // Provided formula for Flesh Kincaid Test
     }
 
     public static double smogTest() {
-        return 1.043 * Math.sqrt((double) numberOfSyllables()[1] * 30 / (double) numberOfSentences()) + 3.1291;
+        return 1.043 * Math.sqrt((double) numberOfSyllables()[1] * 30 / (double) numberOfSentences()) + 3.1291; // Provided formula for SMOG Test
     }
 
     public static double colemanIndex() {
         double L = ((double) numberOfCharacters() / (double) numberOfWords()) * 100;
         double S = ((double) numberOfSentences() / (double) numberOfWords()) * 100;
-        return 0.0588 * L - 0.296 * S - 15.8;
+        return 0.0588 * L - 0.296 * S - 15.8; // Provided formula for Coleman Index
     }
 
     public static double score() {
