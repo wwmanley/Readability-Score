@@ -1,7 +1,19 @@
 # Readability-Score
-This project is an assignment from [Hyperskill's project list](https://hyperskill.org/projects/39). The concept of this program is to score how "readable" a given text file is. The following gif is what the final product looks like:
+This project is an assignment from [Hyperskill's project list](https://hyperskill.org/projects/39). The concept of this program is to score how "readable" a given text file is. 
+
+## Demo
 
 ![Gif of program executing](https://i.imgur.com/J6qYm2x.gif)
+
+# Installation
+
+1. Navigate to where you want to install the project
+2. ``` git clone https://github.com/wwmanley/Readability-Score ```
+3. Navigate into the src folder
+4. ``` javac Main.java ```
+5. ``` java Main ```
+
+## Algorithms
 
 We were given four algorithms that score how readable the given file is. These algorithms will return a number between 1-14. The following chart can be used to determine what age group should be able to read the given text:
 
