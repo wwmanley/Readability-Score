@@ -5,7 +5,7 @@ This project is an assignment from [Hyperskill's project list](https://hyperskil
 
 We were given four algorithms that score how readable the given file is. These algorithms will return a number between 1-14. The following chart can be used to determine what age group should be able to read the given text:
 
-![Image of Readable Chart](https://i.imgur.com/ZtUg6IH.gif)
+![Image of Readable Chart](https://i.imgur.com/bvUeAl3.png)
 
 The four algorithms we used to determine the scores were the [Automated Readability Index Test](https://en.wikipedia.org/wiki/Automated_readability_index), the 
 [Flesh-Kincaid Readability Test](https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests), the [Simple Measure of Gobbledgook Test](https://en.wikipedia.org/wiki/SMOG),
