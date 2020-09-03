@@ -1,15 +1,17 @@
 import java.io.FileNotFoundException;
+import java.text.DecimalFormat;
 import java.util.Scanner;
 import java.io.File;
 
 public class Main {
 
-   static File file = new File("src/words.txt");
+   static File file = new File("./words.txt");
    public static int polySyllables = 0;
 
     public static void main(String[] args) {
 
         Scanner reader = new Scanner(System.in);
+        DecimalFormat df2 = new DecimalFormat("#.##");
 
         System.out.println("Words: " + numberOfWords());
         System.out.println("Sentences: " + numberOfSentences());
@@ -23,22 +25,22 @@ public class Main {
 
         switch (userInput) {
             case "ARI":
-                System.out.println("Automated Readability Index: " + score() + " " + ageGroup(score()));
+                System.out.println("Automated Readability Index: " + df2.format(score()) + " " + ageGroup(score()));
                 break;
             case "FK":
-                System.out.println("Flesch–Kincaid readability tests: " + fleshKincaidTest() + " " + ageGroup(fleshKincaidTest()));
+                System.out.println("Flesch–Kincaid readability tests: " + df2.format(fleshKincaidTest()) + " " + ageGroup(fleshKincaidTest()));
                 break;
             case "SMOG":
-                System.out.println("Simple Measure of Gobbledygook: " + smogTest() + " " + ageGroup(smogTest()));
+                System.out.println("Simple Measure of Gobbledygook: " + df2.format(smogTest()) + " " + ageGroup(smogTest()));
                 break;
             case "CL":
-                System.out.println("Coleman–Liau index: " + colemanIndex() + " " + ageGroup(colemanIndex()));
+                System.out.println("Coleman–Liau index: " + df2.format(colemanIndex()) + " " + ageGroup(colemanIndex()));
                 break;
             case "all":
-                System.out.println("Automated Readability Index: " + score() + " " + ageGroup(score()));
-                System.out.println("Simple Measure of Gobbledygook: " + smogTest() + " " + ageGroup(smogTest()));
-                System.out.println("Flesch–Kincaid readability tests: " + fleshKincaidTest() + " " + ageGroup(fleshKincaidTest()));
-                System.out.println("Coleman–Liau index: " + colemanIndex() + " " + ageGroup(colemanIndex()));
+                System.out.println("Automated Readability Index: " + df2.format(score()) + " " + ageGroup(score()));
+                System.out.println("Simple Measure of Gobbledygook: " + df2.format(smogTest()) + " " + ageGroup(smogTest()));
+                System.out.println("Flesch–Kincaid readability tests: " + df2.format(fleshKincaidTest()) + " " + ageGroup(fleshKincaidTest()));
+                System.out.println("Coleman–Liau index: " + df2.format(colemanIndex()) + " " + ageGroup(colemanIndex()));
         }
 
     }
