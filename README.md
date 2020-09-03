@@ -1,5 +1,8 @@
 # Readability-Score
-This project is an assignment from [Hyperskill's project list](https://hyperskill.org/projects/39). The concept of this program is to score how "readable" a given text file is. 
+This project is an assignment from [Hyperskill's project list](https://hyperskill.org/projects/39). The concept of this program is to score how "readable" a given text file is. The following gif is what the final product looks like:
+
+![Gif of program executing](https://i.imgur.com/DfnFDZ6.gif)
+
 We were given four algorithms that score how readable the given file is. These algorithms will return a number between 1-14. The following chart can be used to determine what age group should be able to read the given text:
 
 ![Image of Readable Chart](https://i.imgur.com/fLbwYwb.png)
