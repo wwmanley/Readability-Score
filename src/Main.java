@@ -10,7 +10,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Scanner reader = new Scanner(System.in);
+        Scanner reader = new Scanner(System.in, "UTF-8");
         DecimalFormat df2 = new DecimalFormat("#.##");
 
         System.out.println("Words: " + numberOfWords());
@@ -28,19 +28,19 @@ public class Main {
                 System.out.println("Automated Readability Index: " + df2.format(score()) + " " + ageGroup(score()));
                 break;
             case "FK":
-                System.out.println("Flesch–Kincaid readability tests: " + df2.format(fleshKincaidTest()) + " " + ageGroup(fleshKincaidTest()));
+                System.out.println("Flesch Kincaid readability tests: " + df2.format(fleshKincaidTest()) + " " + ageGroup(fleshKincaidTest()));
                 break;
             case "SMOG":
                 System.out.println("Simple Measure of Gobbledygook: " + df2.format(smogTest()) + " " + ageGroup(smogTest()));
                 break;
             case "CL":
-                System.out.println("Coleman–Liau index: " + df2.format(colemanIndex()) + " " + ageGroup(colemanIndex()));
+                System.out.println("Coleman Liau index: " + df2.format(colemanIndex()) + " " + ageGroup(colemanIndex()));
                 break;
             case "all":
                 System.out.println("Automated Readability Index: " + df2.format(score()) + " " + ageGroup(score()));
                 System.out.println("Simple Measure of Gobbledygook: " + df2.format(smogTest()) + " " + ageGroup(smogTest()));
-                System.out.println("Flesch–Kincaid readability tests: " + df2.format(fleshKincaidTest()) + " " + ageGroup(fleshKincaidTest()));
-                System.out.println("Coleman–Liau index: " + df2.format(colemanIndex()) + " " + ageGroup(colemanIndex()));
+                System.out.println("Flesch Kincaid readability tests: " + df2.format(fleshKincaidTest()) + " " + ageGroup(fleshKincaidTest()));
+                System.out.println("Coleman Liau index: " + df2.format(colemanIndex()) + " " + ageGroup(colemanIndex()));
         }
 
     }
